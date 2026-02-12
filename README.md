@@ -228,9 +228,9 @@ These control:
    - Polynomial approximation on dense support  
 
 3. Combine via:
-\[
+$$
 \exp(A^{(s)}) + \exp(A^{(L)}) - \mathbf{1}_{n \times n}
-\]
+$$
 
 ---
 
