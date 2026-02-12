@@ -229,7 +229,7 @@ These control:
 
 3. Combine via:
 \[
-\exp(A^{(s)}) + \exp(A^{(L)}) - \textbf{1}_{n \times n}
+\exp(A^{(s)}) + \exp(A^{(L)}) - \mathbf{1}_{n \times n}
 \]
 
 ---
