@@ -1,7 +1,7 @@
 # Support Basis: Fast Attention Beyond Bounded Entries
 
 **Maryam Aliakbarpour · Vladimir Braverman · Junze Yin · Haochen Zhang**  
-*AISTATS 2026*
+*AISTATS 2026 Spotlight*
 
 📄 Paper: *Support Basis: Fast Attention Beyond Bounded Entries*  
 🔗 Code: https://github.com/yinj66/support_basis  
@@ -17,8 +17,7 @@ This repository implements **Support-Basis Decomposition**, a new framework that
 - Removes the bounded-entry assumption  
 - Achieves sub-quadratic runtime  
 - Matches the error guarantees of prior work  
-- Extends to a multi-threshold setting with no distributional assumptions  
-- Provides theoretical justification for polynomial attention  
+
 
 The repository includes:
 
@@ -82,7 +81,7 @@ You may modify:
 
 - `N` (sequence length)  
 - `d` (hidden dimension)  
-- `DEGREE` (Chebyshev degree)  
+- `DEGREE` (Chebyshev polynomial degree)  
 
 ---
 
@@ -109,9 +108,8 @@ Entry distributions/
 
 Each script:
 
-- Hooks into attention projections  
 - Extracts Q/K entries  
-- Plots KDE distributions  
+- Plots entry distributions  
 - Draws ±√(log n) thresholds  
 
 Example:
@@ -231,20 +229,11 @@ These control:
 
 3. Combine via:
 \[
-\exp(A^{(s)}) + \exp(A^{(L)}) - 1
+\exp(A^{(s)}) + \exp(A^{(L)}) - \textbf{1}_{n \times n}
 \]
 
 ---
 
-## Multi-Threshold Support Basis
-
-- Partition entries into buckets  
-- Approximate each bucket with polynomial attention  
-- Sum approximations  
-
-Removes all distributional assumptions.
-
----
 
 # Dependencies
 
@@ -286,10 +275,11 @@ If you use this work, please cite:
 
 ```bibtex
 @inproceedings{aliakbarpour2026support,
-  title={Support Basis: Fast Attention Beyond Bounded Entries},
-  author={Aliakbarpour, Maryam and Braverman, Vladimir and Yin, Junze and Zhang, Haochen},
-  booktitle={AISTATS},
-  year={2026}
+title={Support Basis: Fast Attention Beyond Bounded Entries},
+author={Maryam Aliakbarpour and Vladimir Braverman and Junze Yin and Haochen Zhang},
+booktitle={The 29th International Conference on Artificial Intelligence and Statistics},
+year={2026},
+url={https://openreview.net/forum?id=IgpnZIGFsD}
 }
 ```
 
