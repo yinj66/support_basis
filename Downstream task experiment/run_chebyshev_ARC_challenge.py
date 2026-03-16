@@ -9,6 +9,7 @@ from transformers import AutoTokenizer, AutoModel
 from generate import generate
 import re
 from pathlib import Path
+import os
 
 
 def arc_prompt(question, choices_text, choices_label):
@@ -67,8 +68,8 @@ def chat_arc(args, steps, block_length):
         trust_remote_code=True
     )
     # 修改你新加的 config 字段
-    model.config.hybrid_exact_ratio = args.exact_ratio
-    model.config.hybrid_chebyshev_degree = args.chebyshev_degree
+    # model.config.hybrid_exact_ratio = args.exact_ratio
+    # model.config.hybrid_chebyshev_degree = args.chebyshev_degree
 
 
     # dataset = load_dataset("allenai/ai2_arc", "ARC-Easy", split="test")  # You can also try "ARC-Easy"
@@ -119,8 +120,11 @@ def chat_arc(args, steps, block_length):
 
         total += 1
         correct += is_correct
+    exact_proportion = float(os.environ.get("EXACT_PROPORTION"))
+    chebyshev_degree = int(os.environ.get("CHEBYSHEV_DEGREE"))
+    out_dir = Path(
+        f"arc_challenge_results/steps{steps}_block{block_length}_exact{exact_proportion}_degree{chebyshev_degree}")
 
-    out_dir = Path(f"arc_challenge_results/steps{steps}_block{block_length}")
     out_dir.mkdir(parents=True, exist_ok=True)
     with open(out_dir / "results.json", "w") as f:
         json.dump(results, f, indent=2)
@@ -137,19 +141,6 @@ def parse_args():
         type=str
     )
 
-    parser.add_argument(
-        "--exact_ratio",
-        type=float,
-        default=0.2,
-        help="Proportion of entries computed exactly (top+bottom). Example: 0.2 means 20% total."
-    )
-
-    parser.add_argument(
-        "--chebyshev_degree",
-        type=int,
-        default=6,
-        help="Chebyshev polynomial degree for exp approximation."
-    )
 
     return parser.parse_args()
 
