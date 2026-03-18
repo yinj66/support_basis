@@ -12,6 +12,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from collections import defaultdict
 from transformers import AutoModelForCausalLM, AutoTokenizer
+import matplotlib as mpl
+
+mpl.rcParams['pdf.fonttype'] = 42   # TrueType
+mpl.rcParams['ps.fonttype'] = 42
 
 # ---------------- Matplotlib global styling (8 pt everywhere) ----------------
 plt.rcParams.update({
