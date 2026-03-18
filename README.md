@@ -42,9 +42,8 @@ The repository includes:
 │   ├── run_chebyshev_hellaswag.py
 │   └── run_chebyshev_llmu.py
 ├── Entry distributions
-│   ├── visualize_ViT.py
+│   ├── opt_tinyllama_phi.py
 │   ├── visualize_llada.py
-│   ├── visualize_phi_2.py
 │   └── visualize_tiny_llama.py
 ├── LLaDA-8B-Instruct-B&S-light
 │   ├── modeling_llada.py
@@ -91,19 +90,18 @@ We empirically validate that Q and K entries behave sub-Gaussian.
 
 Supported models:
 
-- TinyLlama  
-- Phi-2  
-- LLaDA-8B  
-- ViT  
+- TinyLlama/TinyLlama-1.1B-Chat-v1.0  
+- microsoft/phi-2  
+- GSAI-ML/LLaDA-8B-Base  
+- facebook/opt-1.3b  
 
 Scripts:
 
 ```
 Entry distributions/
-├── visualize_tiny_llama.py
-├── visualize_phi_2.py
+├── opt_tinyllama_phi.py
 ├── visualize_llada.py
-└── visualize_ViT.py
+└── visualize_tiny_llama.py
 ```
 
 Each script:
@@ -283,5 +281,6 @@ year={2026},
 url={https://openreview.net/forum?id=IgpnZIGFsD}
 }
 ```
+
 
 
