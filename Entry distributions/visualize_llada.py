@@ -13,7 +13,10 @@ import torch.nn as nn
 import matplotlib.pyplot as plt
 from scipy.stats import gaussian_kde
 from transformers import AutoModel, AutoTokenizer
+import matplotlib as mpl
 
+mpl.rcParams['pdf.fonttype'] = 42   # TrueType
+mpl.rcParams['ps.fonttype'] = 42
 
 # ---------------------------
 # Helpers
@@ -173,12 +176,20 @@ def plot_all_kde(store: Dict[str, Any], out_png: str, tok_count: int, logy: bool
     for s in (-thr, +thr):
         ax.axvline(s, linestyle=":", color="red", linewidth=1.5)
 
-    ax.set_title(f"Empirical PDFs of Q/K{'/V' if have_V else ''} (KDE); n={tok_count},  ±√ln n≈{thr:.3f}")
-    ax.set_xlabel("value")
-    ax.set_ylabel("density")
+    # ax.set_title(f"Empirical PDFs of Q/K{'/V' if have_V else ''} (KDE); n={tok_count},  ±√ln n≈{thr:.3f}")
+    ax.set_xlabel("value", fontsize=14)
+    ax.set_ylabel("density", fontsize=14)
     if logy:
         ax.set_yscale("log")
-    ax.legend(ncol=5, fontsize=8, frameon=True)
+    ax.legend(
+        ncol=4,
+        fontsize=10,
+        frameon=True,
+        handlelength=2.5,   # length of line in legend
+        handleheight=1.5,
+        labelspacing=0.6,   # vertical spacing
+        columnspacing=1.2,  # horizontal spacing
+    )
     ax.grid(False)
     fig.tight_layout()
     fig.savefig(out_png, dpi=160)
@@ -195,7 +206,7 @@ def main():
     ap.add_argument("--prompt", default="The quick brown fox jumps over the lazy dog.")
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     ap.add_argument("--dtype", default="bfloat16", choices=["float32","bfloat16","float16"])
-    ap.add_argument("--out", default="qkv_kde_llada.png", help="Output PNG path")
+    ap.add_argument("--out", default="qkv_kde_llada.pdf", help="Output PNG path")
     ap.add_argument("--logy", action="store_true", help="Log-scale y-axis")
     ap.add_argument("--include_v", action="store_true", help="Also plot V")
     ap.add_argument("--bw", default=None,
